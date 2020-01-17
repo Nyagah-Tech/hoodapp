@@ -52,3 +52,16 @@ class Police(models.Model)    :
         return self.name
 
     
+class Post(models.Model):
+    '''
+    this creates the blueprint on which the post will rely on
+    '''
+    title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to= 'post/',blank=True)
+    description = HTMLField()
+    posted_by = models.ForeignKey(User,on_delete= models.CASCADE)
+    posted_on = models.DateTimeField(auto_now_add=True)
+    neighbourhood = models.CharField(max_length= 100)
+    
+    def __str__(self):
+        return self.title

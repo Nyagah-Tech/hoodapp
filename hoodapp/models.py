@@ -16,7 +16,7 @@ class Business(models.Model):
     this class gives a blueprint how our bussinesses will be made
     '''
     posted_by = models.ForeignKey(User,on_delete = models.CASCADE)
-    location = models.CharField(max_length=100)
+    neighbourhood = models.CharField(max_length=100)
     email = models.EmailField()
     name = models.CharField(max_length=250)
     description = HTMLField()

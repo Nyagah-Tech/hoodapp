@@ -1,5 +1,6 @@
 {% extends 'all/base.html'%}
-{% load static%}
+{% load bootstrap4%}
+{% load staticfiles %}
 {% block content %}
     <body>
         <div class="container">
@@ -8,7 +9,7 @@
                     <h1>Add Bussiness</h1>
                     <form action="{%url 'add-bussiness'%}" method="POST">
                         {%csrf_token%}
-                        {% bootstarp_form form%}
+                        {% bootstrap_form form%}
                         <select name="Location">
                             <option name="">Location</option>
                             <option name="" value="Nairobi">Nairobi</option>
@@ -19,6 +20,7 @@
                             <option name="" value="Nakuru">Nakuru</option>
                             <option name="" value="Mombasa">Mombasa</option>
                         </select> 
+                        <br>
                         <br>
                         <input type="submit" value="Add">
                     </form>

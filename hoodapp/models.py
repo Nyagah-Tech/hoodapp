@@ -28,6 +28,17 @@ class Health(models.Model):
     neighbourhood = models.CharField(max_length=250)
     email =  models.EmailField()
     phone = models.IntegerField()
+    name = models.CharField(max_length=250)
+    
+class Police(models.Model)    :
+    '''
+    this describes the information that will be collected about the police stations
+    '''
+    name = models.CharField(max_length=250)
+    email = models.EmailField()
+    phone = models.IntegerField()
+    neighbourhood = models.CharField(max_length=250)
+    
     
 
     

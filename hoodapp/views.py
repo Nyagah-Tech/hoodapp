@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from .email import send_register_confirm_email
 from django.contrib.auth.decorators import login_required
+from .forms import *
+
 
 # Create your views here.
 
@@ -36,5 +38,32 @@ def registration(request):
     
 @login_required
 def home(request):
+    '''
+    renders our homepage
+    '''
     return render(request,'all/home.html')
+        
+@login_required
+def add_bussiness(request):
+    '''
+    this view function either renders our add bussiness form our saves a new bussiness
+    '''
+    if request.method == 'POST':
+        form = BusinessForm(request.POST)
+        hood = request.POST.get('Location')
+        if form.is_valid():
+            bussiness = form.save(commit=False)
+            bussiness.neighbourhood = hood
+            bussiness.posted_by = request.user
+            bussiness.save()
+            return redirect('home')
+        else:
+            messages.info(request,"all fields are required")
+            return redirect('add-bussiness')
+    else:
+        form = BusinessForm()
+        return render(request,'all/add_bs.html',{"form":form})
+
+     
+            
         

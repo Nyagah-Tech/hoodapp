@@ -1,0 +1,30 @@
+{% extends 'all/base.html'%}
+{% load static%}
+{% block content %}
+    <body>
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h1>Add Bussiness</h1>
+                    <form action="{%url 'add-bussiness'%}" method="POST">
+                        {%csrf_token%}
+                        {% bootstarp_form form%}
+                        <select name="Location">
+                            <option name="">Location</option>
+                            <option name="" value="Nairobi">Nairobi</option>
+                            <option name="" value="Ngong">Ngong</option>
+                            <option name="" value="Thika">Thika</option>
+                            <option name="" value="Ruiru">Ruiru</option>
+                            <option name="" value="Rwaka">Rwaka</option>
+                            <option name="" value="Nakuru">Nakuru</option>
+                            <option name="" value="Mombasa">Mombasa</option>
+                        </select> 
+                        <br>
+                        <input type="submit" value="Add">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+
+{% endblock %}

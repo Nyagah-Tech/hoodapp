@@ -20,4 +20,14 @@ class Business(models.Model):
     email = models.EmailField()
     name = models.CharField(max_length=250)
     description = HTMLField()
+    
+class Health(models.Model):
+    '''
+    this is a class blueprint or skeleton of how our health sectors will be stored
+    '''
+    neighbourhood = models.CharField(max_length=250)
+    email =  models.EmailField()
+    phone = models.IntegerField()
+    
 
+    

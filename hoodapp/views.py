@@ -64,6 +64,5 @@ def add_bussiness(request):
         form = BusinessForm()
         return render(request,'all/add_bs.html',{"form":form})
 
-     
             
         

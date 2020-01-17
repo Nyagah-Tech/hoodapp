@@ -10,6 +10,9 @@ class Profile(models.Model):
     profile_pic = models.ImageField(upload_to= 'images/', default= 'default.jpg')
     bio = HTMLField()
     neighbourhood = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return self.user.username
 
 class Business(models.Model):
     '''
@@ -21,6 +24,9 @@ class Business(models.Model):
     name = models.CharField(max_length=250)
     description = HTMLField()
     
+    def __str__(self):
+        return self.name
+    
 class Health(models.Model):
     '''
     this is a class blueprint or skeleton of how our health sectors will be stored
@@ -29,6 +35,9 @@ class Health(models.Model):
     email =  models.EmailField()
     phone = models.IntegerField()
     name = models.CharField(max_length=250)
+    
+    def __str__(self):
+        return self.name
     
 class Police(models.Model)    :
     '''
@@ -39,6 +48,7 @@ class Police(models.Model)    :
     phone = models.IntegerField()
     neighbourhood = models.CharField(max_length=250)
     
-    
+    def __str__(self):
+        return self.name
 
     

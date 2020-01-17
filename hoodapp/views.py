@@ -64,5 +64,31 @@ def add_bussiness(request):
         form = BusinessForm()
         return render(request,'all/add_bs.html',{"form":form})
 
+@login_required
+def new_post(request):
+    '''
+    this is a view function that renders our new post form aswell as save our new post in the db
+    '''
+    profile = Profile.objects.get(user = request.user)
+    if profile.neighbourhood is None:
+        messages.info(request,'Provide your neighbourhood information first!')
+        return redirect('update-profile')
+    else:
+        if request.method == 'POST':
+            form = PostForm(request.POST,request.FILES)
+            if form.is_valid():
+                post = form.save(commit = False)
+                post.posted_by = request.user
+                post.neighbourhood = profile.neighbourhood
+                post.save()
+                return redirect('home')
+            else:
+                messages.info(request,'All fields are required')
+                return redirect('new-post')
+        else:
+            form = PostForm()
+            return render(request,'all/new_post.html',{"form":form})
             
+            
+        
         

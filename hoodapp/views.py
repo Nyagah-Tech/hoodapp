@@ -49,12 +49,14 @@ def home(request):
     hospitals = Health.objects.filter(neighbourhood = current_user.neighbourhood)
     user = request.user
     business = Business.objects.filter(neighbourhood=current_user.neighbourhood)
+    locations = Neighbourhood.objects.all()
     context = {
         'business':business,
         'police':police,
         'hospitals':hospitals,
         'user':user,
         'current_user':current_user,
+        'locations':locations
         
     }
     return render(request,'all/home.html',context)
@@ -77,8 +79,26 @@ def add_bussiness(request):
             messages.info(request,"all fields are required")
             return redirect('add-bussiness')
     else:
+        current_user = get_object_or_404(Profile,user = request.user)
+        current_user = Profile.objects.get(user=request.user)
+        business = Business.objects.filter(neighbourhood = current_user.neighbourhood)
+        police = Police.objects.filter(neighbourhood = current_user.neighbourhood)
+        hospitals = Health.objects.filter(neighbourhood = current_user.neighbourhood)
+        user = request.user
+        business = Business.objects.filter(neighbourhood=current_user.neighbourhood)
+        locations = Neighbourhood.objects.all()
         form = BusinessForm()
-        return render(request,'all/add_bs.html',{"form":form})
+        context = {
+            'business':business,
+            'police':police,
+            'hospitals':hospitals,
+            'user':user,
+            'current_user':current_user,
+            'locations':locations,
+            'form':form,
+            
+        }
+        return render(request,'all/add_bs.html',context)
 
 @login_required
 def new_post(request):
@@ -104,8 +124,27 @@ def new_post(request):
                 messages.info(request,'All fields are required')
                 return redirect('new-post')
         else:
+            
             form = PostForm()
-            return render(request,'all/new_post.html',{"form":form})
+            current_user = get_object_or_404(Profile,user = request.user)
+            current_user = Profile.objects.get(user=request.user)
+            business = Business.objects.filter(neighbourhood = current_user.neighbourhood)
+            police = Police.objects.filter(neighbourhood = current_user.neighbourhood)
+            hospitals = Health.objects.filter(neighbourhood = current_user.neighbourhood)
+            user = request.user
+            business = Business.objects.filter(neighbourhood=current_user.neighbourhood)
+            locations = Neighbourhood.objects.all()
+            context = {
+                'business':business,
+                'police':police,
+                'hospitals':hospitals,
+                'user':user,
+                'current_user':current_user,
+                'locations':locations,
+                'form':form,
+                
+            }
+            return render(request,'all/new_post.html',context)
             
 @login_required
 def update_profile(request):
@@ -132,13 +171,55 @@ def update_profile(request):
     else:
         profileform = UpdateProfileForm(instance=request.user.profile)
         userform = UserUpdateform(instance=request.user)
-        return render(request,'all/update_prof.html',{"profileform":profileform,"userform":userform})
+        
+        current_user = get_object_or_404(Profile,user = request.user)
+        current_user = Profile.objects.get(user=request.user)
+        business = Business.objects.filter(neighbourhood = current_user.neighbourhood)
+        police = Police.objects.filter(neighbourhood = current_user.neighbourhood)
+        hospitals = Health.objects.filter(neighbourhood = current_user.neighbourhood)
+        user = request.user
+        business = Business.objects.filter(neighbourhood=current_user.neighbourhood)
+        locations = Neighbourhood.objects.all()
+        form = BusinessForm()
+        context = {
+            'business':business,
+            'police':police,
+            'hospitals':hospitals,
+            'user':user,
+            'current_user':current_user,
+            'locations':locations,
+            'profileform':profileform,
+            "userform":userform,
+            
+        }
+        return render(request,'all/update_prof.html',context)
     
 @login_required
 def profile(request):
     profile = Profile.objects.filter(user= request.user)
     post = Post.objects.filter(posted_by = request.user)
-    return render(request,'all/profile.html',{"profile":profile,"post":post})
+    
+    current_user = get_object_or_404(Profile,user = request.user)
+    current_user = Profile.objects.get(user=request.user)
+    business = Business.objects.filter(neighbourhood = current_user.neighbourhood)
+    police = Police.objects.filter(neighbourhood = current_user.neighbourhood)
+    hospitals = Health.objects.filter(neighbourhood = current_user.neighbourhood)
+    user = request.user
+    business = Business.objects.filter(neighbourhood=current_user.neighbourhood)
+    locations = Neighbourhood.objects.all()
+    context = {
+        'business':business,
+        'police':police,
+        'hospitals':hospitals,
+        'user':user,
+        'current_user':current_user,
+        'locations':locations,
+        'profile':profile,
+        'post':post,
+        
+    }
+    
+    return render(request,'all/profile.html',context)
     
 #ADMIN DASHBOARD
 
@@ -192,12 +273,47 @@ def nav_view(request):
         police = Police.objects.filter(neighbourhood = current_user.neighbourhood)
         hospitals = Health.objects.filter(neighbourhood = current_user.neighbourhood)
         user = request.user
+        locations = Neighbourhood.objects.all()
         context = {
             'business':business,
             'police':police,
             'hospitals':hospitals,
             'user':user,
             'current_user':current_user,
+            'locations':locations,
             
         }
         return render(request,'all/navbar.html',context)
+    
+@login_required()
+def location_view(request,location_id):
+    
+    current_user = Profile.objects.get(user=request.user)
+    business = Business.objects.filter(neighbourhood = current_user.neighbourhood)
+    police = Police.objects.filter(neighbourhood = current_user.neighbourhood)
+    hospitals = Health.objects.filter(neighbourhood = current_user.neighbourhood)
+    user = request.user
+    locations = Neighbourhood.objects.all()  
+    location = Neighbourhood.objects.filter(id = location_id)
+    occupants = Profile.objects.filter(neighbourhood = location.name)
+    hospital_list= Health.objects.filter(neighbourhood = location.name)
+    police_list = Police.objects.filter(neighbourhood = location.name)
+    business_list = Business.objects.filter(neighbourhood = location.name)
+    
+    context = {
+        'business':business,
+        'police':police,
+        'hospitals':hospitals,
+        'user':user,
+        'current_user':current_user,
+        'locations':locations,
+        'location':location,
+        'occupants':occupants,
+        'hospital_list':hospital_list,
+        'police_list':police_list,
+        'business_list':business_list
+        
+    }
+    
+   
+    return render(request,'all/single_hood.html',context)

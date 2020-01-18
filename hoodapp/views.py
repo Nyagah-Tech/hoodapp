@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -42,7 +42,22 @@ def home(request):
     '''
     renders our homepage
     '''
-    return render(request,'all/home.html')
+    current_user = get_object_or_404(Profile,user = request.user)
+    current_user = Profile.objects.get(user=request.user)
+    business = Business.objects.filter(neighbourhood = current_user.neighbourhood)
+    police = Police.objects.filter(neighbourhood = current_user.neighbourhood)
+    hospitals = Health.objects.filter(neighbourhood = current_user.neighbourhood)
+    user = request.user
+    business = Business.objects.filter(neighbourhood=current_user.neighbourhood)
+    context = {
+        'business':business,
+        'police':police,
+        'hospitals':hospitals,
+        'user':user,
+        'current_user':current_user,
+        
+    }
+    return render(request,'all/home.html',context)
         
 @login_required
 def add_bussiness(request):
@@ -162,3 +177,27 @@ def user_activate(request, user_id):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+@login_required()
+def nav_view(request):
+    current_user = Profile.objects.get(user=request.user)
+    hoods = ['Nairobi','Ngong','Ruiru'
+             ,'Thika','Rwaka','Juja','Kenol','Westlands']
+    if profile.neighbourhood not in hoods:
+        messages.info(request,'Provide your neighbourhood information first!')
+        return redirect('update-profile')
+    else:
+        current_user = Profile.objects.get(user=request.user)
+        business = Business.objects.filter(neighbourhood = current_user.neighbourhood)
+        police = Police.objects.filter(neighbourhood = current_user.neighbourhood)
+        hospitals = Health.objects.filter(neighbourhood = current_user.neighbourhood)
+        user = request.user
+        context = {
+            'business':business,
+            'police':police,
+            'hospitals':hospitals,
+            'user':user,
+            'current_user':current_user,
+            
+        }
+        return render(request,'all/navbar.html',context)

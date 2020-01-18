@@ -66,3 +66,13 @@ class Post(models.Model):
     
     def __str__(self):
         return self.title
+    
+class Neighbourhood(models.Model):
+    '''
+    this is used to create the neighbourhood information
+    '''
+    name = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.name

@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from .email import send_register_confirm_email
 from django.contrib.auth.decorators import login_required
 from .forms import *
+from django.contrib.auth.decorators import permission_required
 
 
 # Create your views here.
@@ -124,3 +125,15 @@ def profile(request):
     post = Post.objects.filter(posted_by = request.user)
     return render(request,'all/profile.html',{"profile":profile,"post":post})
     
+#ADMIN DASHBOARD
+
+@login_required()
+@permission_required("True","home")
+def registered_users(request):
+    users = User.objects.all()
+    return render(request,'admin_site/users.html',{"users":users})
+
+@login_required()
+@permission_required()
+def dashboard(request):
+    return render(request,'admin_site/dashboard.html')

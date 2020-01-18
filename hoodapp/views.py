@@ -155,3 +155,10 @@ def user_activate(request, user_id):
     user.save()
     messages.success(request,f"{user.username}'s account has been activated succesfull'")
     return redirect('system_users')
+
+#END ADMIN DASHBOARD
+
+@login_required()
+def logout_view(request):
+    logout(request)
+    return redirect('/')

@@ -24,6 +24,7 @@ class Business(models.Model):
     email = models.EmailField()
     name = models.CharField(max_length=250)
     description = HTMLField()
+    image =  models.ImageField(upload_to= 'post/', default= 'default.jpg')
     
     def __str__(self):
         return self.name
@@ -36,6 +37,7 @@ class Health(models.Model):
     email =  models.EmailField()
     phone = models.IntegerField()
     name = models.CharField(max_length=250)
+    image = models.ImageField(upload_to= 'post/',blank=True)
     
     def __str__(self):
         return self.name
@@ -48,6 +50,7 @@ class Police(models.Model):
     email = models.EmailField()
     phone = models.IntegerField()
     neighbourhood = models.CharField(max_length=250)
+    image =  models.ImageField(upload_to= 'post/', default= 'default.jpg')
     
     def __str__(self):
         return self.name

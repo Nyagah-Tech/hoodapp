@@ -18,3 +18,21 @@ class PostForm(forms.ModelForm):
             'posted_on',
             'neighbourhood',
         ]
+
+class UpdateProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        exclude = [
+            
+            'user',
+            'neighbourhood',
+        ]
+        
+class UserUpdateform(forms.ModelForm):
+    email = forms.EmailField()
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'email',
+        ]   

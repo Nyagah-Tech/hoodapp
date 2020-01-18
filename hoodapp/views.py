@@ -134,6 +134,15 @@ def registered_users(request):
     return render(request,'admin_site/users.html',{"users":users})
 
 @login_required()
-@permission_required()
+@permission_required("True","home")
 def dashboard(request):
     return render(request,'admin_site/dashboard.html')
+
+@login_required
+@permission_required("True","home")
+def user_deactivate(request,user_id):
+    user = User.objects.get(pk = user_id)
+    user.is_active = False
+    user.save()
+    messages.success(request, f"{user.username}'s account has been deactivated successfully")
+    return redirect("system_users")

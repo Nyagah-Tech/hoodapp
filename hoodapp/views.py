@@ -286,7 +286,7 @@ def nav_view(request):
         return render(request,'all/navbar.html',context)
     
 @login_required()
-def location_view(request,location_id):
+def location_view(request,id):
     
     current_user = Profile.objects.get(user=request.user)
     business = Business.objects.filter(neighbourhood = current_user.neighbourhood)
@@ -294,7 +294,7 @@ def location_view(request,location_id):
     hospitals = Health.objects.filter(neighbourhood = current_user.neighbourhood)
     user = request.user
     locations = Neighbourhood.objects.all()  
-    location = Neighbourhood.objects.filter(id = location_id)
+    location = get_object_or_404(Neighbourhood,id=id)
     occupants = Profile.objects.filter(neighbourhood = location.name)
     hospital_list= Health.objects.filter(neighbourhood = location.name)
     police_list = Police.objects.filter(neighbourhood = location.name)
@@ -314,6 +314,5 @@ def location_view(request,location_id):
         'business_list':business_list
         
     }
-    
-   
     return render(request,'all/single_hood.html',context)
+

@@ -1,0 +1,17 @@
+{%extends 'all/base.html'%}
+{% load bootstrap4%}
+{% load staticfiles %}
+{% block content%}
+    <body>
+        <div class="container">
+            <div class="card">
+                <div class="profile">
+                    {%for  prof in profile%}
+                        <p>{{prof.user}}</p>
+                        <p>bio:::  {{prof.bio}}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </body>
+{% endblock%}

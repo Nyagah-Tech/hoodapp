@@ -1,0 +1,33 @@
+{% extends 'all/base.html'%}
+{%load bootstrap4%}
+{%load static%}
+{%block content%}
+<head>
+    <style>
+        #pat{
+            margin-left: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 15px;
+        }    
+    </style>
+</head>
+<body style="margin-top: 150px;">
+    <div class="container">
+        <div class="card">
+            <h1 style="margin-bottom: 20px; text-align: center;">{{bs.name}} hospital in {{bs.neighbourhood}}</h1>
+            <img src="{{bs.image.url}}" alt="{{Hospital.name}} image" class="img-responsive" height="400px" ">
+            <div class="details" style="margin-top: 35px;">
+                <h1 class="text-center" style="margin-bottom: 20px;">{{bs.name}} details</h1>
+                <hr>
+                <li id="pat"><b>Name ::: </b>{{bs.name}}</li>
+                <li id="pat"><b>Bussiness description</b><br>{{bs.description}}</li>
+                <li id="pat"><b>Bussiness  phone-number ::: </b>{{bs.phone}}</li>
+                <li id="pat"><b>Email address ::: </b>{{bs.email}}</li>
+                <li id="pat"><b>Located at ::: </b>{{bs.neighbourhood}}</li>
+                <li id="pat"><b>Bussiness owner ::: </b>{{bs.posted_by}}</li>
+            </div>
+        </div>
+    </div>
+</body>
+{%endblock%}

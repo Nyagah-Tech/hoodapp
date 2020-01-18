@@ -1,0 +1,22 @@
+{%extends 'all/base.html'%}
+{% load bootstrap4%}
+{% load staticfiles %}
+{% block content %}
+    <body>
+        <div class="container">
+            <h1 class="text-center">Add new post</h1>
+            <div class="message">
+                {%for message in messages %}
+                    <p>{{message}}</p>
+                {% endfor %}
+            </div>
+            <div class="card">
+                <form action="{%url 'new-post'%}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <input type="submit" value="Post">
+                </form>
+            </div>
+        </div>
+    </body>
+{% endblock %}

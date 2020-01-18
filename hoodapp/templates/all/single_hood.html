@@ -1,0 +1,59 @@
+{%extends 'all/base.html'%}
+{%load bootstrap4%}
+{%load static%}
+{%block content%}
+<head>
+    <style>
+        li {
+            font-size: 15px;
+            margin-left: 10px;
+        }   
+        body{
+            font-size: 16px;
+        } 
+    </style>
+</head>
+<body style="margin-top: 150px;">
+    <div class="container">
+
+        <div class="card">
+                <h1 class="text-center" style="margin-bottom: 20px;">{{location.name}} neighbourhood</h1>
+                <img src="{{location.image.url}}" alt="image" class="img-responsive" style="height: 500px;">
+                <div class="content" style="text-align: center;">
+                    <p><b>Location :::::  </b> {{location.location}}</p>
+                    <p><b>Occuppants of {{loccation.name}} ::::: </b> {{occupants.count}}</p>
+                    <p><b>Hospitals ::::: </b> {{hospital_list.count}}</p>
+                    <p><b>Police stations ::::: </b> {{police_list.count}}</p>
+                    <p><b>Established businesses ::::: </b> {{business_list.count}}</p>                    
+                </div>
+        </div>
+
+        <div class="row" style="margin-top: 60px;">
+            <div class="col-md-4">
+                <div class="card">
+                    <h1 class="text-center" style="margin-bottom: 15px;">Businesses in {{location.name}}</h1>
+                    {%for business in business_list%}
+                        <li>{{business.name}}</li>
+                    {%endfor%}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <h1 class="text-center" style="margin-bottom: 15px;">Police in {{location.name}}</h1>
+                    {%for police in police_list %}
+                        <li>{{police.name}}</li>
+                    {%endfor%}
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <h1 class="text-center" style="margin-bottom: 15px;">Hospitals in {{location.name}}</h1>
+                    {%for hospital in hospital_list %}
+                        <li>{{hospital.name}}</li>
+                    {%endfor%}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{%endblock%}

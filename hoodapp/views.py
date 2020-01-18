@@ -146,3 +146,12 @@ def user_deactivate(request,user_id):
     user.save()
     messages.success(request, f"{user.username}'s account has been deactivated successfully")
     return redirect("system_users")
+
+@login_required()
+@permission_required("True","home")
+def user_activate(request, user_id):
+    user = User.objects.get(pk = user_id)
+    user.is_active= True
+    user.save()
+    messages.success(request,f"{user.username}'s account has been activated succesfull'")
+    return redirect('system_users')

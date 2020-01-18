@@ -70,7 +70,9 @@ def new_post(request):
     this is a view function that renders our new post form aswell as save our new post in the db
     '''
     profile = Profile.objects.get(user = request.user)
-    if profile.neighbourhood is None:
+    hoods = ['Nairobi','Ngong','Ruiru'
+             ,'Thika','Rwaka','Juja','Kenol','Westlands']
+    if profile.neighbourhood not in hoods:
         messages.info(request,'Provide your neighbourhood information first!')
         return redirect('update-profile')
     else:
@@ -89,6 +91,36 @@ def new_post(request):
             form = PostForm()
             return render(request,'all/new_post.html',{"form":form})
             
-            
+@login_required
+def update_profile(request):
+    '''
+    this is a view function that handles the update funtionality of our profile
+    '''
+    
+    if request.method == 'POST':
+        hood = request.POST.get('Location')
+        profileform = UpdateProfileForm(request.POST,request.FILES,instance=request.user.profile)
+        userform = UserUpdateform(request.POST,instance=request.user)
         
-        
+        if profileform.is_valid() and userform.is_valid():
+            profile = profileform.save(commit=False)
+            profile.neighbourhood = hood
+            profile.user = request.user
+            profile.save()
+            userform.save()
+            return redirect('profile')
+        else:
+            messages.info(request,'All fields are required!')
+            return redirect('update-profile')
+    
+    else:
+        profileform = UpdateProfileForm(instance=request.user.profile)
+        userform = UserUpdateform(instance=request.user)
+        return render(request,'all/update_prof.html',{"profileform":profileform,"userform":userform})
+    
+@login_required
+def profile(request):
+    profile = Profile.objects.filter(user= request.user)
+    post = Post.objects.filter(posted_by = request.user)
+    return render(request,'all/profile.html',{"profile":profile,"post":post})
+    

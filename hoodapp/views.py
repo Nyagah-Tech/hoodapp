@@ -316,3 +316,43 @@ def location_view(request,id):
     }
     return render(request,'all/single_hood.html',context)
 
+@login_required()
+def hospital_view(request,id):
+    Hospital = get_object_or_404(Health,id = id)
+    current_user = Profile.objects.get(user=request.user)
+    business = Business.objects.filter(neighbourhood = current_user.neighbourhood)
+    police = Police.objects.filter(neighbourhood = current_user.neighbourhood)
+    hospitals = Health.objects.filter(neighbourhood = current_user.neighbourhood)
+    user = request.user
+    locations = Neighbourhood.objects.all()
+    context = {
+        'business':business,
+        'police':police,
+        'hospitals':hospitals,
+        'user':user,
+        'current_user':current_user,
+        'locations':locations,
+        'Hospital':Hospital
+        
+    }
+    return render(request,'all/hospital.html',context)
+
+@login_required()
+def business_view(request,id):
+    bs = get_object_or_404(Business,id=id)
+    current_user = Profile.objects.get(user=request.user)
+    business = Business.objects.filter(neighbourhood = current_user.neighbourhood)
+    police = Police.objects.filter(neighbourhood = current_user.neighbourhood)
+    hospitals = Health.objects.filter(neighbourhood = current_user.neighbourhood)
+    user = request.user
+    locations = Neighbourhood.objects.all()
+    context = {
+        'business':business,
+        'police':police,
+        'hospitals':hospitals,
+        'user':user,
+        'current_user':current_user,
+        'locations':locations,
+        'bs':bs,
+    }
+    return render(request,'all/business.html',context)

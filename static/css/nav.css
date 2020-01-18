@@ -26,11 +26,11 @@ body { background: black; position: relative; }
  /* Body */
   .better-nav .body { float: right; height: 100%; }
   .better-nav .body li:hover,
-  .better-nav .body li:focus { background: #f1f0ed; }
+  .better-nav .body li:focus { background: #b3b2af; }
   .better-nav .body li:hover > a,
   .better-nav .body li:focus > a { opacity: 1; font-size: 15px }
   .better-nav .body ul { list-style: none; margin: 0; padding: 0; height: 100%; }
-  .better-nav .body ul li.active { background: #dfdfdf; }
+  .better-nav .body ul li.active { background: #a0a0a0; }
   .better-nav .body > ul > li { display: table; float: left; height: 100%; }
   .better-nav .body > ul > li > a { display: table-cell; vertical-align: middle; text-decoration: none; padding: 0 15px; }
   /* Dropdown */

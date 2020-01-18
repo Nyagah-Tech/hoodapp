@@ -7,6 +7,8 @@ urlpatterns = [
     path('',views.home,name='home'),
     path('add/bussiness/',views.add_bussiness,name = 'add-bussiness'),
     path('new/post/',views.new_post,name = 'new-post'),
+    path('profile/',views.profile,name="profile"),
+    path('update/profile/',views.update_profile,name="update-profile")
     
 ]
 if settings.DEBUG:

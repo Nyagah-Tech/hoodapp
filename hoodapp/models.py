@@ -10,6 +10,7 @@ class Profile(models.Model):
     profile_pic = models.ImageField(upload_to= 'images/', default= 'default.jpg')
     bio = HTMLField()
     neighbourhood = models.CharField(max_length=200)
+
     
     def __str__(self):
         return self.user.username
@@ -39,7 +40,7 @@ class Health(models.Model):
     def __str__(self):
         return self.name
     
-class Police(models.Model)    :
+class Police(models.Model):
     '''
     this describes the information that will be collected about the police stations
     '''

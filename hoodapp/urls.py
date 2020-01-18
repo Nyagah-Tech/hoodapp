@@ -9,6 +9,7 @@ urlpatterns = [
     path('new/post/',views.new_post,name = 'new-post'),
     path('profile/',views.profile,name="profile"),
     path('update/profile/',views.update_profile,name="update-profile"),
+    path('logout/',views.logout_view,name="logout"),
     #dasboard
     path("dashboard/",views.dashboard, name="user_dashboard"),
     path("users/", views.registered_users,name = 'system_users'),

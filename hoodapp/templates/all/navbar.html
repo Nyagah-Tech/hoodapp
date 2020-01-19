@@ -36,13 +36,14 @@
         <ul>
           <li class="home" style="font-weight: 505; font-size: 15px"><a href="/">{{current_user}}</a></li>
           <li class="home" style="font-weight: 505; font-size: 15px"><a href="/">Home</a></li>
+          <li class="home" style="font-weight: 505; font-size: 15px"><a href="{%url 'user_dashboard'%}">dashboard</a></li>
           <li class="blog  dropdown"><a style="font-weight: 505; font-size: 15px" href="#">Profile</a>
             <span class="selector"></span>
             <ul style="font-size: 15px">
               <li><a href="{% url 'profile'%}">My profile</a></li>
               <li><a href="/accounts/password/change">Change password</a></li>
               <li><a href="{%url 'update-profile'%}">Change Neighbourhood</a></li>
-              <li><a href="">Logout</a></li>
+              <li><a href="{%url 'logout'%}">Logout</a></li>
             </ul>
           </li>
           <li class="page" style="font-weight: 505; font-size: 15px"><a href="{%url 'new-post'%}">Add post</a></li>
@@ -52,26 +53,45 @@
               <li class="blog  dropdown"><a style="font-weight: 505; font-size: 15px" href="#">Bussiness</a>
                 <span class="selector"></span>
                 <ul style="font-size: 15px">
-                  <li><a href="">Add bussiness</a></li>
-                  <li><a href="">All bussiness</a></li>
+                  <li><a href="{%url 'add-bussiness'%}">New bussiness</a></li>
+                  {%for bs in business %}
+                  <li><a href="/business/{{bs.id}}">{{bs.name}}</a></li>
+                  {% empty%}
+                  <li><a href="">No bussiness is registered</a></li>
+                  {%endfor%}
 
                 </ul>
               </li>
               <li class="blog  dropdown"><a style="font-weight: 505; font-size: 15px" href="#">Police</a>
                 <span class="selector"></span>
                 <ul style="font-size: 15px">
-                  <li><a href="">All police</a></li>
+                  {% for pol in police %}
+                  <li><a href="/police/{{pol.id}}">{{pol.name}}</a></li>
+                  {% empty%}
+                  <p>pupu</p>
+                  {% endfor %}
 
                 </ul>
               </li>
               <li class="blog  dropdown"><a style="font-weight: 505; font-size: 15px" href="#">Health</a>
                 <span class="selector"></span>
                 <ul style="font-size: 15px">
-                  <li><a href="">All hospitals</a></li>
-
+                  {%for hosi in hospitals%}
+                  <li><a href="/hospital/{{hosi.id}}">{{hosi.name}} </a></li>
+                  {%endfor%}
                 </ul>
               </li>
+              
 
+            </ul>
+          </li>
+          <li class="blog  dropdown"><a style="font-weight: 505; font-size: 15px" href="#">Neighbourhoods</a>
+            <span class="selector"></span>
+            <ul style="font-size: 15px">
+              {% for location in locations%}
+              <li><a href="/neighbourhood/{{location.id}}">{{location.name}} </a></li>
+              {% endfor%}
+             
             </ul>
           </li>
           <li class="more dropdown" id="hov"><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a>

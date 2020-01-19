@@ -2,33 +2,45 @@
 {% load bootstrap4%}
 {% load staticfiles %}
 {% block content %}
-    <body>
-        <div class="container">
-            <h1 class="text-center">Update your profile</h1>
-            <div class="message">
-                {%for message in messages %}
-                    <p>{{message}}</p>
-                {% endfor %}
+
+<body style="margin-top: 150px; background-color: white;">
+    <div class="container">
+        <h1 class="text-center">Update your profile</h1>
+        <div class="card" style="margin-top: 20px;margin-bottom: 20px;">
+            {%for message in messages %}
+            <div class="row">
+                <div class="col-md-2">
+                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2014%2F04%2F02%2F10%2F26%2Fattention-303861_960_720.png&f=1&nofb=1"
+                        alt="" style="height: 100%;width: 100%;">
+                </div>
+                <div class="col-md-10">
+                    <h1 style="margin-top: 40px;">{{message}}</h1>
+                </div>
             </div>
-            <div class="card">
-                <form action="{%url 'update-profile'%}" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% bootstrap_form userform %}
-                    {% bootstrap_form profileform %}
-                    <select name="Location">
-                        <option name="">Location</option>
-                        <option name="" value="Nairobi">Nairobi</option>
-                        <option name="" value="Ngong">Ngong</option>
-                        <option name="" value="Thika">Thika</option>
-                        <option name="" value="Ruiru">Ruiru</option>
-                        <option name="" value="Rwaka">Rwaka</option>
-                        <option name="" value="Juja">Juja</option>
-                        <option name="" value="Kenol">Kenol</option>
-                        <option name="" value="Westlands">Westlands</option>
-                    </select> 
-                    <input type="submit" value="Update">
-                </form>
-            </div>
+            {% endfor %}
         </div>
-    </body>
+        <div class="card" style="padding: 30px; font-size: 16px;">
+            <form action="{%url 'update-profile'%}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form userform %}
+                {% bootstrap_form profileform %}
+                <br><br>
+                <select name="Location">
+                    <option name="">Location</option>
+                    <option name="" value="Nairobi">Nairobi</option>
+                    <option name="" value="Ngong">Ngong</option>
+                    <option name="" value="Thika">Thika</option>
+                    <option name="" value="Ruiru">Ruiru</option>
+                    <option name="" value="Rwaka">Rwaka</option>
+                    <option name="" value="Juja">Juja</option>
+                    <option name="" value="Kenol">Kenol</option>
+                    <option name="" value="Westlands">Westlands</option>
+                </select>
+                <br><br>
+                <input type="submit" value="Update">
+            </form>
+        </div>
+    </div>
+</body>
+{% include 'all/footer.html'%}
 {% endblock %}

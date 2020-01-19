@@ -16,7 +16,7 @@
     <div class="container">
         <div class="card">
             <h1 style="margin-bottom: 20px; text-align: center;">{{Hospital.name}} hospital in {{Hospital.neighbourhood}}</h1>
-            <img src="{{Hospital.image.url}}" alt="{{Hospital.name}} image" class="img-responsive" height="400px" ">
+            <img src="{{Hospital.image.url}}" alt="{{Hospital.name}} image" class="img-responsive" style="height: 500px;">
             <div class="details" style="margin-top: 35px;">
                 <h1 class="text-center" style="margin-bottom: 20px;">{{Hospital.name}} details</h1>
                 <hr>
@@ -28,4 +28,5 @@
         </div>
     </div>
 </body>
+{%include 'all/footer.html'%}
 {%endblock%}

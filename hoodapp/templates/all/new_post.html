@@ -2,16 +2,16 @@
 {% load bootstrap4%}
 {% load staticfiles %}
 {% block content %}
-    <body>
+    <body style="margin-top: 100px; background-color: white;">
         <div class="container">
-            <h1 class="text-center">Add new post</h1>
+            <h1 class="text-center" >Add new post</h1>
             <div class="message">
                 {%for message in messages %}
                     <p>{{message}}</p>
                 {% endfor %}
             </div>
-            <div class="card">
-                <form action="{%url 'new-post'%}" method="POST" enctype="multipart/form-data">
+            <div class="card" >
+                <form action="{%url 'new-post'%}" method="POST" enctype="multipart/form-data" style="margin-left: 15px;margin-right: 15px;margin-bottom: 15px;margin-top: 15px;">
                     {% csrf_token %}
                     {% bootstrap_form form %}
                     <input type="submit" value="Post">

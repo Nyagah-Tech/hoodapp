@@ -13,6 +13,7 @@ urlpatterns = [
     path('neighbourhood/<int:id>',views.location_view, name="location"),
     path('hospital/<int:id>',views.hospital_view,name='hospital'),
     path('business/<int:id>',views.business_view,name = 'business'),
+    path('police/<int:id>',views.police_view, name='police'),
     #dasboard
     path("dashboard/",views.dashboard, name="user_dashboard"),
     path("users/", views.registered_users,name = 'system_users'),

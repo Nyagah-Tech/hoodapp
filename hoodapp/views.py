@@ -6,7 +6,7 @@ from .email import send_register_confirm_email
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from django.contrib.auth.decorators import permission_required
-
+from .models import *
 
 # Create your views here.
 
@@ -50,13 +50,15 @@ def home(request):
     user = request.user
     business = Business.objects.filter(neighbourhood=current_user.neighbourhood)
     locations = Neighbourhood.objects.all()
+    posts = Post.objects.filter(neighbourhood = current_user.neighbourhood)
     context = {
         'business':business,
         'police':police,
         'hospitals':hospitals,
         'user':user,
         'current_user':current_user,
-        'locations':locations
+        'locations':locations,
+        'posts':posts,
         
     }
     return render(request,'all/home.html',context)
@@ -109,7 +111,7 @@ def new_post(request):
     hoods = ['Nairobi','Ngong','Ruiru'
              ,'Thika','Rwaka','Juja','Kenol','Westlands']
     if profile.neighbourhood not in hoods:
-        messages.info(request,'Provide your neighbourhood information first!')
+        messages.info(request,'Provide your neighbourhood information first before adding a post!')
         return redirect('update-profile')
     else:
         if request.method == 'POST':
@@ -197,7 +199,7 @@ def update_profile(request):
 @login_required
 def profile(request):
     profile = Profile.objects.filter(user= request.user)
-    post = Post.objects.filter(posted_by = request.user)
+    posts = Post.objects.filter(posted_by = request.user)
     
     current_user = get_object_or_404(Profile,user = request.user)
     current_user = Profile.objects.get(user=request.user)
@@ -215,7 +217,7 @@ def profile(request):
         'current_user':current_user,
         'locations':locations,
         'profile':profile,
-        'post':post,
+        'posts':posts,
         
     }
     
@@ -356,3 +358,23 @@ def business_view(request,id):
         'bs':bs,
     }
     return render(request,'all/business.html',context)
+
+@login_required()
+def police_view(request,id):
+    plc = get_object_or_404(Police,id=id)
+    current_user = Profile.objects.get(user=request.user)
+    business = Business.objects.filter(neighbourhood = current_user.neighbourhood)
+    police = Police.objects.filter(neighbourhood = current_user.neighbourhood)
+    hospitals = Health.objects.filter(neighbourhood = current_user.neighbourhood)
+    user = request.user
+    locations = Neighbourhood.objects.all()
+    context = {
+        'business':business,
+        'police':police,
+        'hospitals':hospitals,
+        'user':user,
+        'current_user':current_user,
+        'locations':locations,
+        'plc':plc,
+    }
+    return render(request,'all/police.html',context)
